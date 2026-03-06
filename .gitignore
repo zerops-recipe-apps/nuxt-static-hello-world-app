@@ -1,0 +1,10 @@
+# Build output
+.output/
+.nuxt/
+
+# Dependencies
+node_modules/
+
+# Nuxt dev tools and cache
+.data/
+.cache/

@@ -1,0 +1,72 @@
+# Build with Node.js (npm/npx), serve with Nginx.
+# The build container compiles the Nuxt app into a fully
+# static site — Node.js is NOT present at runtime.
+zerops:
+  # Production setup — optimized static build for Nginx.
+  - setup: prod
+    build:
+      base: nodejs@22
+
+      # Static deployments have no runtime process to read
+      # env vars — NUXT_PUBLIC_* values are embedded into
+      # HTML/JS output at generate time by 'nuxi generate'.
+      # Use Zerops RUNTIME_ prefix to inject per-environment
+      # values without code changes: set APP_ENV as a runtime
+      # var and reference it as NUXT_PUBLIC_APP_ENV here.
+      envVariables:
+        NUXT_PUBLIC_APP_ENV: production
+
+      buildCommands:
+        - npm ci
+        # 'nuxt generate' pre-renders all pages to static
+        # HTML/CSS/JS in .output/public/ — no server needed
+        # at runtime.
+        - npm run build
+
+      # Strip '.output/public/' prefix so index.html lands
+      # at the Nginx document root ('/'), not at
+      # '/.output/public/index.html'.
+      deployFiles:
+        - .output/public/~
+
+      # node_modules: skips reinstall on repeat builds.
+      # .nuxt: caches module resolution and type generation,
+      # saving several seconds per generate run.
+      cache:
+        - node_modules
+        - .nuxt
+
+    run:
+      # Nginx serves the compiled output — no Node.js at
+      # runtime. Built-in SPA fallback serves index.html
+      # for all unmatched routes, so client-side routing
+      # (Vue Router) works out of the box.
+      base: static
+
+  # Dev setup — workspace for SSH-based development.
+  # Node.js is available at runtime (run.base: nodejs@22)
+  # so developers can run 'npx nuxi dev' interactively.
+  - setup: dev
+    build:
+      base: nodejs@22
+      os: ubuntu
+
+      buildCommands:
+        # npm install (not ci) — flexible for fresh workspaces
+        # where the lock file may not exist yet.
+        - npm install
+
+      # Deploy full source tree — developer needs all files
+      # to run the dev server and edit code via SSH.
+      deployFiles: ./
+
+      cache:
+        - node_modules
+
+    run:
+      base: nodejs@22
+      os: ubuntu
+      # Keep the container alive without starting a server.
+      # Developer starts their own dev server via SSH:
+      #   npx nuxi dev --host 0.0.0.0
+      start: zsc noop --silent
