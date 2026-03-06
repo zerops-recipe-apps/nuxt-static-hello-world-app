@@ -17,7 +17,10 @@ zerops:
         NUXT_PUBLIC_APP_ENV: production
 
       buildCommands:
-        - npm ci
+        # npm install (not ci) — Nuxt 4's transitive deps have
+        # a known peer-dep conflict that npm ci rejects. With a
+        # committed lock file, npm install is still reproducible.
+        - npm install
         # 'nuxt generate' pre-renders all pages to static
         # HTML/CSS/JS in .output/public/ — no server needed
         # at runtime.
