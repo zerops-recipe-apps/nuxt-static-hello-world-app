@@ -9,6 +9,12 @@ const { version } = JSON.parse(
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
 
+  app: {
+    head: {
+      link: [{ rel: 'icon', href: '/favicon.ico' }],
+    },
+  },
+
   appConfig: {
     // Nuxt version baked into static output at generate time.
     nuxtVersion: version,
