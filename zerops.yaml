@@ -69,7 +69,10 @@ zerops:
     run:
       base: nodejs@22
       os: ubuntu
+      ports:
+        - port: 3000
+          httpSupport: true
       # Keep the container alive without starting a server.
       # Developer starts their own dev server via SSH:
-      #   npx nuxi dev --host 0.0.0.0
+      #   npm run dev -- --host 0.0.0.0
       start: zsc noop --silent

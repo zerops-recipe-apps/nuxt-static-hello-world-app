@@ -1,7 +1,22 @@
 {
-  "name": "nuxt-hello-world",
+  "name": "nuxt-static-hello-world-app",
+  "version": "1.0.0",
+  "description": "Nuxt 4 static site (SSG) deployed on Zerops with nginx",
+  "author": "Zerops",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zerops-recipe-apps/nuxt-static-hello-world-app"
+  },
+  "homepage": "https://github.com/zerops-recipe-apps/nuxt-static-hello-world-app",
+  "bugs": {
+    "url": "https://github.com/zerops-recipe-apps/nuxt-static-hello-world-app/issues"
+  },
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=22.0.0"
+  },
   "scripts": {
     "dev": "nuxt dev",
     "build": "nuxt generate",
@@ -9,6 +24,19 @@
     "preview": "nuxt preview"
   },
   "dependencies": {
-    "nuxt": "^4.3.1"
+    "nuxt": "4.5.1"
+  },
+  "keywords": [
+    "nuxt",
+    "zerops",
+    "static",
+    "ssg",
+    "nginx"
+  ],
+  "overrides": {
+    "brace-expansion": "2.1.4",
+    "minimatch@10": {
+      "brace-expansion": "5.0.9"
+    }
   }
 }
