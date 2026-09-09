@@ -25,7 +25,7 @@ zerops:
   # Production setup — optimized static build for Nginx.
   - setup: prod
     build:
-      base: nodejs@22
+      base: nodejs@24
 
       # Static deployments have no runtime process to read
       # env vars — NUXT_PUBLIC_* values are embedded into
@@ -67,11 +67,11 @@ zerops:
       base: static
 
   # Dev setup — workspace for SSH-based development.
-  # Node.js is available at runtime (run.base: nodejs@22)
+  # Node.js is available at runtime (run.base: nodejs@24)
   # so developers can run 'npx nuxi dev' interactively.
   - setup: dev
     build:
-      base: nodejs@22
+      base: nodejs@24
       os: ubuntu
 
       buildCommands:
@@ -87,7 +87,7 @@ zerops:
         - node_modules
 
     run:
-      base: nodejs@22
+      base: nodejs@24
       os: ubuntu
       # Keep the container alive without starting a server.
       # Developer starts their own dev server via SSH:
