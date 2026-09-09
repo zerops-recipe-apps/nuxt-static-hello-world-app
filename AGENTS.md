@@ -6,7 +6,7 @@ Nuxt 4 static site via `nuxt generate` (SSG) — static build served by nginx in
 
 - HTTP port: dev `3000` (nuxt dev) / prod `80` (nginx)
 - Siblings: —
-- Runtime base: dev `nodejs@22` / prod `static`
+- Runtime base: dev `nodejs@24` / prod `static`
 
 ## Zerops dev
 
